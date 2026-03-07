@@ -1,15 +1,19 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17
 TARGET = proiect3122a_YM_BiblioTest
-SRC = src/main.cpp
+SRC = $(wildcard src/*.cpp)
+OBJ = $(SRC:.cpp=.o)
 
 all: $(TARGET)
 
-$(TARGET):$(SRC)
-	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET)
+$(TARGET):$(OBJ)
+	$(CXX) $(CXXFLAGS) $(OBJ) -o $(TARGET)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 run: $(TARGET)
 	./$(TARGET)
 
 clean:
-	rm -f $(TARGET)
+	rm -f src/*.o $(TARGET)
