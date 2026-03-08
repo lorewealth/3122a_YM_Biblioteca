@@ -1,10 +1,12 @@
-#include "header.h"
+#include "Carte.h"
 
 int main(){
 
     std::cout << "Hello, World!\n";
-    Test t1(30, "He");
-    std::cout << t1.getName() << ' ' << t1.getUnits() << '\n';
+
+    Carte carte1("Game of Thrones", "George R. Martin", "0000-0000-000-123");
+
+    std::cout << carte1;
 
     return 0;
 }
