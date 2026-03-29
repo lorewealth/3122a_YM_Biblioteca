@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++17
-TARGET = proiect3122a_YM_BiblioTest
+TARGET = 3122a_YM_Biblioteca
 SRC = $(wildcard src/*.cpp)
 OBJ = $(SRC:.cpp=.o)
 
