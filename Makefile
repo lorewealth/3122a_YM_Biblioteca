@@ -1,7 +1,9 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++17
+INCLUDE_DIRS = $(shell find src -type d)
+INC_FLAGS = $(addprefix -I,$(INCLUDE_DIRS))
+CXXFLAGS = -Wall -Wextra -std=c++17 $(INC_FLAGS)
 TARGET = 3122a_YM_Biblioteca
-SRC = $(wildcard src/*.cpp)
+SRC = $(shell find src -name '*.cpp')
 OBJ = $(SRC:.cpp=.o)
 
 all: $(TARGET)
@@ -16,4 +18,4 @@ run: $(TARGET)
 	./$(TARGET)
 
 clean:
-	rm -f src/*.o $(TARGET)
+	rm -f $(OBJ) $(TARGET)
