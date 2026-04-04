@@ -2,99 +2,27 @@
 #include "CarteFictiune.h"
 #include "CarteTehnica.h"
 #include "Exceptie.h"
+#include "Persoane.h"
+#include "Interfata.h"
 #include <string>
+#include <iostream>
 
-Carte* CitireaCarte();
-
+/*
+ *   Carte* CitireaCarte();
+ * Carte* carte1 = new CarteTehnica("DEEA2", "Test", "----?---?", 2000, "Inginerie Electronica");
+*/
 int main()
 {
-    char optiuneaChar;
-    std::string optiuneaString;
-    Biblioteca biblioteca;
-    Carte* carte = nullptr;
-
-    do
+    try
     {
-        try{
-
-            std::cout << "------------MENU------------\n";
-            std::cout << "C. Citirea cartei\n";
-            std::cout << "A. Afisarea cartei introduse\n";
-            std::cout << "S. Salvarea cartii\n";
-            std::cout << "D. Stergerea cartii\n";
-            std::cout << "L. Afisarea cartilor\n";
-            std::cout << "U. Introducerea utilizator(WIP)\n";
-            std::cout << "X. Terminarea aplicatiei\n";
-            std::cout << "----------------------------\n";
-
-            std::cout << "Selectati: ";
-            std::cin >> optiuneaString;
-
-            if(optiuneaString.length() > 1)
-            {
-                throw Exceptie("Selectarea optiunei din meniu" ,"Optiunea selectata are o lungime mare\n");
-            }
-
-            optiuneaChar = std::toupper(optiuneaString[0]);
-
-            switch(optiuneaChar)
-            {
-                case 'C':
-                    carte = CitireaCarte();
-                    break;
-                case 'A':
-                    if(carte == nullptr) throw Exceptie("Afisarea cartei" ,"Nu ati citit cartea");
-
-                    std::cout << carte->afisare();
-                    break;
-                case 'S':
-                    if(carte == nullptr) throw Exceptie("Salvarea cartei" ,"Nu ati introdus o noua carte!");
-
-                    biblioteca.addCarte(carte);
-                    std::cout << "Cartea a fost salvata\n";
-
-                    carte = nullptr;
-                    break;
-                case 'D':
-                {
-                    if(biblioteca.getCartile().size() == 0) throw Exceptie("Stergerea Cartii", "Nu ati introdus nici o carte in biblioteca");
-                    int id = 0;
-
-                    std::cout << "Introduceti id dupa care va fi cautat carte: ";
-                    std::cin >> id;
-
-                    biblioteca.stergeCarte(id);
-                    std::cout << "Cartea a fost stersa cu succes\n";
-                    break;
-                }
-                case 'L':
-                    if(biblioteca.getCartile().size() == 0) throw Exceptie("Afisarea Listei", "Nu ati initializat lista");
-
-                    for(auto carte : biblioteca.getCartile())
-                    {
-                        std::cout << carte->afisare();
-                    }
-                    break;
-                case 'X':
-                    std::cout << "Iesirea din aplicatie...\n";
-                    delete carte;
-                    break;
-                default:
-                    std::cout << "Nu ati selectat optiunea valida\n";
-                    break;
-            }
-        }
-        catch(Exceptie e)
-        {
-            std::cerr << e.afisare();
-        }
-        catch(...)
-        {
-            std::cerr << "Un error neinitializat\n";
-        }
+        Interfata interfata(1680, 700, "Biblioteca");
+        if(interfata.initializarea() == -1) throw Exceptie("Initializarea interfatei", "Nu a fost initializat cu succes");
+        interfata.ruleaza();
     }
-    while (optiuneaChar != 'X');
-
+    catch(const Exceptie& e)
+    {
+        e.afisare();
+    }
     return 0;
 }
 
@@ -184,4 +112,97 @@ Carte* CitireaCarte()
             break;
     }
     return nullptr;
+}
+
+//Temporar mutat
+void mutat_()
+{
+    // char optiuneaChar;
+    // std::string optiuneaString;
+    // Biblioteca biblioteca;
+    // Carte* carte = nullptr;
+    // Persoana pers("Ion", "Ionescu", "04.04.2000", "---");
+    // // std::cout << pers.afisarea();
+
+    // do
+    // {
+    //     try{
+
+    //         std::cout << "------------MENU------------\n";
+    //         std::cout << "C. Citirea cartei\n";
+    //         std::cout << "A. Afisarea cartei introduse\n";
+    //         std::cout << "S. Salvarea cartii\n";
+    //         std::cout << "D. Stergerea cartii\n";
+    //         std::cout << "L. Afisarea cartilor\n";
+    //         std::cout << "U. Introducerea utilizator(WIP)\n";
+    //         std::cout << "X. Terminarea aplicatiei\n";
+    //         std::cout << "----------------------------\n";
+
+    //         std::cout << "Selectati: ";
+    //         std::cin >> optiuneaString;
+
+    //         if(optiuneaString.length() > 1)
+    //         {
+    //             throw Exceptie("Selectarea optiunei din meniu" ,"Optiunea selectata are o lungime mare\n");
+    //         }
+
+    //         optiuneaChar = std::toupper(optiuneaString[0]);
+
+    //         switch(optiuneaChar)
+    //         {
+    //             case 'C':
+    //                 carte = CitireaCarte();
+    //                 break;
+    //             case 'A':
+    //                 if(carte == nullptr) throw Exceptie("Afisarea cartei" ,"Nu ati citit cartea");
+
+    //                 std::cout << carte->afisare();
+    //                 break;
+    //             case 'S':
+    //                 if(carte == nullptr) throw Exceptie("Salvarea cartei" ,"Nu ati introdus o noua carte!");
+
+    //                 biblioteca.addCarte(carte);
+    //                 std::cout << "Cartea a fost salvata\n";
+
+    //                 carte = nullptr;
+    //                 break;
+    //             case 'D':
+    //             {
+    //                 if(biblioteca.getCartile().size() == 0) throw Exceptie("Stergerea Cartii", "Nu ati introdus nici o carte in biblioteca");
+    //                 int id = 0;
+
+    //                 std::cout << "Introduceti id dupa care va fi cautat carte: ";
+    //                 std::cin >> id;
+
+    //                 biblioteca.stergeCarte(id);
+    //                 std::cout << "Cartea a fost stersa cu succes\n";
+    //                 break;
+    //             }
+    //             case 'L':
+    //                 if(biblioteca.getCartile().size() == 0) throw Exceptie("Afisarea Listei", "Nu ati initializat lista");
+
+    //                 for(auto carte : biblioteca.getCartile())
+    //                 {
+    //                     std::cout << carte->afisare();
+    //                 }
+    //                 break;
+    //             case 'X':
+    //                 std::cout << "Iesirea din aplicatie...\n";
+    //                 delete carte;
+    //                 break;
+    //             default:
+    //                 std::cout << "Nu ati selectat optiunea valida\n";
+    //                 break;
+    //         }
+    //     }
+    //     catch(Exceptie e)
+    //     {
+    //         std::cerr << e.afisare();
+    //     }
+    //     catch(...)
+    //     {
+    //         std::cerr << "Un error neinitializat\n";
+    //     }
+    // }
+    // while (optiuneaChar != 'X');
 }
