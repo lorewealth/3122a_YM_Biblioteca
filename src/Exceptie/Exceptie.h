@@ -7,5 +7,5 @@ private:
 public:
     Exceptie(const std::string& locul, const std::string& error);
     ~Exceptie() = default;
-    std::string afisare();
+    const std::string afisare() const;
 };
