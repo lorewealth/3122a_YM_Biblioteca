@@ -1,6 +1,7 @@
 #include "Interfata.h"
+#include <optional>
 
-Interfata::Interfata(int lungimea, int inaltimea, const std::string& denumirea)
+Interfata::Interfata(unsigned int lungimea, unsigned int inaltimea, const std::string& denumirea)
                     : lungimea(lungimea), inaltimea(inaltimea), denumirea(denumirea)
                     {
                         flags = ImGuiWindowFlags_NoTitleBar |
@@ -17,7 +18,7 @@ Interfata::~Interfata()
 
 int Interfata::initializarea()
 {
-    window.create(sf::VideoMode(lungimea, inaltimea), denumirea);
+    window.create(sf::VideoMode({lungimea, inaltimea}), denumirea);
     window.setFramerateLimit(60);
 
     if(!ImGui::SFML::Init(window)) return -1;
@@ -29,12 +30,10 @@ void Interfata::ruleaza()
 {
     while(window.isOpen())
     {
-        sf::Event event;
-        while(window.pollEvent(event))
+        while(const std::optional event = window.pollEvent())
         {
-            ImGui::SFML::ProcessEvent(window, event);
-
-            if(event.type == sf::Event::Closed)
+            ImGui::SFML::ProcessEvent(window, *event);
+            if(event->template is<sf::Event::Closed>())
             {
                 window.close();
             }

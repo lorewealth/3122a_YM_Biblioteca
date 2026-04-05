@@ -12,8 +12,8 @@
 class Interfata
 {
 private:
-    int lungimea;
-    int inaltimea;
+    unsigned int lungimea;
+    unsigned int inaltimea;
     std::string denumirea;
 
     sf::RenderWindow window;
@@ -21,7 +21,7 @@ private:
     ImGuiWindowFlags flags;
 
 public:
-    Interfata(int lungimea, int inaltimea, const std::string& denumirea);
+    Interfata(unsigned int lungimea, unsigned int inaltimea, const std::string& denumirea);
     ~Interfata();
     int initializarea();
     void ruleaza();
