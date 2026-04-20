@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp" "lib/*.cpp")
+list(APPEND SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/lib/SQLite/sqlite3.c")
 
 file(GLOB_RECURSE ALL_HEADERS "src/*.hpp" "src/*.h" "lib/*.hpp" "lib/*.h")
 foreach(header_file ${ALL_HEADERS})

@@ -1,8 +1,8 @@
 *.o
 *.exe
 .vscode/
+build/
 Cerinte.txt
-compile_commands.json
 .cache
 imgui.ini
 3122a_YM_Biblioteca
