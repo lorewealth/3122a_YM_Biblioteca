@@ -1,0 +1,4 @@
+/home/lorewealth/Проекти/3122a_YM_Biblioteca/build/CMakeFiles/3122a_YM_Biblioteca.dir
+/home/lorewealth/Проекти/3122a_YM_Biblioteca/build/CMakeFiles/run.dir
+/home/lorewealth/Проекти/3122a_YM_Biblioteca/build/CMakeFiles/edit_cache.dir
+/home/lorewealth/Проекти/3122a_YM_Biblioteca/build/CMakeFiles/rebuild_cache.dir
