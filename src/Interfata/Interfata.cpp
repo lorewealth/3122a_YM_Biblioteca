@@ -120,7 +120,7 @@ void Interfata::Login(float pozX, float lungContent)
     }
 
     if (loginStatus == 1) ImGui::TextColored(ImVec4(0, 1, 0, 1), "Hello, lorewealth!");
-    else if (loginStatus == 2) ImGui::TextColored(ImVec4(1, 0, 0, 1), "Invalid username or password.");
+    else if (loginStatus == 2) ImGui::TextColored(ImVec4(1, 0, 0, 1), "Username invalid sau password-ul.");
 
     ImGui::EndGroup();
 
