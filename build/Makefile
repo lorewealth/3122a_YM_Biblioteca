@@ -142,6 +142,30 @@ run/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/run.dir/build.make CMakeFiles/run.dir/build
 .PHONY : run/fast
 
+lib/SQLite/sqlite3.o: lib/SQLite/sqlite3.c.o
+.PHONY : lib/SQLite/sqlite3.o
+
+# target to build an object file
+lib/SQLite/sqlite3.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3122a_YM_Biblioteca.dir/build.make CMakeFiles/3122a_YM_Biblioteca.dir/lib/SQLite/sqlite3.c.o
+.PHONY : lib/SQLite/sqlite3.c.o
+
+lib/SQLite/sqlite3.i: lib/SQLite/sqlite3.c.i
+.PHONY : lib/SQLite/sqlite3.i
+
+# target to preprocess a source file
+lib/SQLite/sqlite3.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3122a_YM_Biblioteca.dir/build.make CMakeFiles/3122a_YM_Biblioteca.dir/lib/SQLite/sqlite3.c.i
+.PHONY : lib/SQLite/sqlite3.c.i
+
+lib/SQLite/sqlite3.s: lib/SQLite/sqlite3.c.s
+.PHONY : lib/SQLite/sqlite3.s
+
+# target to generate assembly for a file
+lib/SQLite/sqlite3.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/3122a_YM_Biblioteca.dir/build.make CMakeFiles/3122a_YM_Biblioteca.dir/lib/SQLite/sqlite3.c.s
+.PHONY : lib/SQLite/sqlite3.c.s
+
 lib/imgui/imgui-SFML.o: lib/imgui/imgui-SFML.cpp.o
 .PHONY : lib/imgui/imgui-SFML.o
 
@@ -560,6 +584,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... run"
 	@echo "... 3122a_YM_Biblioteca"
+	@echo "... lib/SQLite/sqlite3.o"
+	@echo "... lib/SQLite/sqlite3.i"
+	@echo "... lib/SQLite/sqlite3.s"
 	@echo "... lib/imgui/imgui-SFML.o"
 	@echo "... lib/imgui/imgui-SFML.i"
 	@echo "... lib/imgui/imgui-SFML.s"

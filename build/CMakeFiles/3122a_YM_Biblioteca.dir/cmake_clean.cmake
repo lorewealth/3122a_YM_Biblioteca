@@ -2,6 +2,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/3122a_YM_Biblioteca.dir/link.d"
   "3122a_YM_Biblioteca"
   "3122a_YM_Biblioteca.pdb"
+  "CMakeFiles/3122a_YM_Biblioteca.dir/lib/SQLite/sqlite3.c.o"
+  "CMakeFiles/3122a_YM_Biblioteca.dir/lib/SQLite/sqlite3.c.o.d"
   "CMakeFiles/3122a_YM_Biblioteca.dir/lib/imgui/imgui-SFML.cpp.o"
   "CMakeFiles/3122a_YM_Biblioteca.dir/lib/imgui/imgui-SFML.cpp.o.d"
   "CMakeFiles/3122a_YM_Biblioteca.dir/lib/imgui/imgui.cpp.o"
@@ -39,6 +41,6 @@ file(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang CXX)
+foreach(lang C CXX)
   include(CMakeFiles/3122a_YM_Biblioteca.dir/cmake_clean_${lang}.cmake OPTIONAL)
 endforeach()

@@ -19,6 +19,7 @@
   CMakeFiles/3122a_YM_Biblioteca.dir/src/Obiecte/CarteTehnica.cpp.o \
   CMakeFiles/3122a_YM_Biblioteca.dir/src/Securitate/Criptare.cpp.o \
   CMakeFiles/3122a_YM_Biblioteca.dir/src/main.cpp.o \
+  CMakeFiles/3122a_YM_Biblioteca.dir/lib/SQLite/sqlite3.c.o \
   /home/lorewealth/Проекти/3122a_YM_Biblioteca/lib/SFML/bin-linux/libsfml-graphics.so \
   /home/lorewealth/Проекти/3122a_YM_Biblioteca/lib/SFML/bin-linux/libsfml-window.so \
   /home/lorewealth/Проекти/3122a_YM_Biblioteca/lib/SFML/bin-linux/libsfml-system.so \
@@ -124,6 +125,8 @@ CMakeFiles/3122a_YM_Biblioteca.dir/src/Obiecte/CarteTehnica.cpp.o:
 CMakeFiles/3122a_YM_Biblioteca.dir/src/Securitate/Criptare.cpp.o:
 
 CMakeFiles/3122a_YM_Biblioteca.dir/src/main.cpp.o:
+
+CMakeFiles/3122a_YM_Biblioteca.dir/lib/SQLite/sqlite3.c.o:
 
 /home/lorewealth/Проекти/3122a_YM_Biblioteca/lib/SFML/bin-linux/libsfml-graphics.so:
 

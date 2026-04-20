@@ -1,6 +1,8 @@
 #include "Interfata.h"
 #include "imgui.h"
 #include "imgui_internal.h"
+#include <climits>
+#include <cmath>
 #include <optional>
 
 Interfata::Interfata(unsigned int lungimea, unsigned int inaltimea, const std::string& denumirea)
@@ -43,27 +45,27 @@ void Interfata::ruleaza()
 
         ImGui::SFML::Update(window, deltaCeas.restart());
 
-        if(ImGui::BeginMainMenuBar())
+        ImGui::SetNextWindowPos(ImVec2(0,0));
+        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
+
+        ImGui::Begin("Login", nullptr, flags);
+
         {
-            if(ImGui::BeginMenu("Fisier: "))
-            {
-                if(ImGui::MenuItem("Iesire")) window.close();
-                ImGui::EndMenu();
-            }
-            ImGui::TextDisabled("| Biblioteca v0.1");
-            ImGui::EndMainMenuBar();
+            ImVec2 locDisponibil = ImGui::GetContentRegionAvail();
+
+            float lungContent = 400;
+            float inaltContent = 120;
+
+            float pozX = (locDisponibil.x - lungContent) * 0.5;
+            float pozY = (locDisponibil.y - inaltContent) * 0.5;
+
+            if(pozX < 0) pozX = 0;
+            if(pozY < 0) pozY = 0;
+
+            ImGui::SetCursorPos(ImVec2(pozX, pozY));
+            Login(pozX, lungContent);
+
         }
-        ImGui::SetNextWindowPos(ImVec2(0, 20));
-        ImGui::SetNextWindowSize(ImVec2(lungimea, inaltimea-20));
-
-        ImGui::Begin("Cartea: ", nullptr, flags);
-
-        ImGui::TextColored(ImVec4(1,1,0,1), "Detalii carte selectat");
-        ImGui::Separator();
-
-        ImGui::TextUnformatted("--Nu implementat text--");
-
-        Login();
 
         ImGui::End();
 
@@ -74,8 +76,11 @@ void Interfata::ruleaza()
 
 }
 
-void Interfata::Login()
+void Interfata::Login(float pozX, float lungContent)
 {
+
+    ImGui::BeginGroup();
+
     if (ImGui::BeginTable("Log in", 2, ImGuiTableFlags_SizingFixedFit))
     {
         ImGui::TableNextRow();
@@ -98,6 +103,27 @@ void Interfata::Login()
 
         ImGui::EndTable();
     }
+
+    float lungimeButon = 120;
+    ImGui::SetCursorPosX(pozX + (lungContent - lungimeButon) * 0.5);
+    if(ImGui::Button("Log in", ImVec2(lungimeButon, 0)))
+    {
+        if(Interfata::getUsername() == "lorewealth" && Criptare::decriptare(Interfata::getPassword()) == "12345")
+        {
+            loginStatus = 1;
+        }
+        else
+        {
+            loginStatus = 2;
+        }
+
+    }
+
+    if (loginStatus == 1) ImGui::TextColored(ImVec4(0, 1, 0, 1), "Hello, lorewealth!");
+    else if (loginStatus == 2) ImGui::TextColored(ImVec4(1, 0, 0, 1), "Invalid username or password.");
+
+    ImGui::EndGroup();
+
 }
 
 std::string Interfata::getUsername() const { return std::string(bufferUsername); }

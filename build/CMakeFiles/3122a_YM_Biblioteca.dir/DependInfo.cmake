@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/lorewealth/Проекти/3122a_YM_Biblioteca/lib/SQLite/sqlite3.c" "CMakeFiles/3122a_YM_Biblioteca.dir/lib/SQLite/sqlite3.c.o" "gcc" "CMakeFiles/3122a_YM_Biblioteca.dir/lib/SQLite/sqlite3.c.o.d"
   "/home/lorewealth/Проекти/3122a_YM_Biblioteca/lib/imgui/imgui-SFML.cpp" "CMakeFiles/3122a_YM_Biblioteca.dir/lib/imgui/imgui-SFML.cpp.o" "gcc" "CMakeFiles/3122a_YM_Biblioteca.dir/lib/imgui/imgui-SFML.cpp.o.d"
   "/home/lorewealth/Проекти/3122a_YM_Biblioteca/lib/imgui/imgui.cpp" "CMakeFiles/3122a_YM_Biblioteca.dir/lib/imgui/imgui.cpp.o" "gcc" "CMakeFiles/3122a_YM_Biblioteca.dir/lib/imgui/imgui.cpp.o.d"
   "/home/lorewealth/Проекти/3122a_YM_Biblioteca/lib/imgui/imgui_draw.cpp" "CMakeFiles/3122a_YM_Biblioteca.dir/lib/imgui/imgui_draw.cpp.o" "gcc" "CMakeFiles/3122a_YM_Biblioteca.dir/lib/imgui/imgui_draw.cpp.o.d"
