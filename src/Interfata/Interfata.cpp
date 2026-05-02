@@ -1,6 +1,9 @@
 #include "Interfata.h"
 #include <string>
 
+Interfata::Interfata(BazaDeDate *db)
+{}
+
 void Interfata::Initializarea()
 {
     std::string optiunea;
