@@ -6,9 +6,11 @@
 #include "Interfata.h"
 #include <string>
 #include <iostream>
+#include "BazaDeDate.h"
 
 int main()
 {
+    BazaDeDate("Date.sqlite");
     Interfata::Initializarea();
 
 

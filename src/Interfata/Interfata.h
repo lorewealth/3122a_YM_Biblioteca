@@ -5,7 +5,7 @@
 class Interfata
 {
     private:
-        SQLite::Database *db;
+        BazaDeDate *db;
     public:
         Interfata();
         ~Interfata() = default;
