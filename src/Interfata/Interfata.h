@@ -1,15 +1,16 @@
 #include <iostream>
 #include "BazaDeDate.h";
+#include "Database.h"
 
 class Interfata
 {
-private:
-
-public:
-    Interfata();
-    ~Interfata() = default;
-    static void Intro();
-    static void Login();
-    static void Registrarea();
-    static void Meniu();
+    private:
+        SQLite::Database *db;
+    public:
+        Interfata();
+        ~Interfata() = default;
+        static void Initializarea();
+        static void Login();
+        static void Registrarea();
+        static void Meniu();
 };

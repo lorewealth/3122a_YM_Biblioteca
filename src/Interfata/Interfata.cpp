@@ -1,15 +1,16 @@
 #include "Interfata.h"
+#include <string>
 
-void Interfata::Intro()
+void Interfata::Initializarea()
 {
     std::string optiunea;
     do
     {
-        std::cout << "\n~~~~~~~~~~~~~~~~~~~~Biblioteca~~~~~~~~~~~~~~~~~~~~";
-        std::cout << "\nSelectati metoda de a intra in sistema bibliotecii:";
-        std::cout << "\nl. Log in:";
-        std::cout << "\ni. Inregistrarea";
-        std::cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+        std::cout << "~~~~~~~~~~~~~~~~~~~~Biblioteca~~~~~~~~~~~~~~~~~~~~\n";
+        std::cout << "Selectati metoda de a intra in sistema bibliotecii:";
+        std::cout << "l. Log in:";
+        std::cout << "i. Inregistrarea";
+        std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
         std::cout << "Selectati: ";
 
         std::cin >> optiunea;
@@ -32,17 +33,24 @@ void Interfata::Intro()
 
 void Interfata::Login()
 {
-    std::string username, parola;
-    system("clear");
-    std::cout << "\n~~~~~~~~~~~~~~~~~~~~Log in~~~~~~~~~~~~~~~~~~~~\n";
-    std::cout << "Introdu username-ul tau: ";
-    std::cin >> username;
-    std::cout << "Introdu parola ta: ";
-    std::cin >> parola;
-    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+
 }
 
 void Interfata::Registrarea()
 {
+    std::string username;
+    std::string parola;
+    std::string nume;
+    std::string prenume;
 
+
+    system("clear");
+    std::cout << "~~~~~~~~~~~~~~~~~~~Registrarea~~~~~~~~~~~~~~~~~~~\n";
+    std::cout << "Username: ";
+    std::cin >> username;
+    if()
+    std::cout << "Parola: ";
+    std::cin >> parola;
+    std::cout << "Nume: ";
+    std:
 }

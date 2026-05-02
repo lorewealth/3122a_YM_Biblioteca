@@ -1,5 +1,6 @@
 #include <string>
 
+#pragma once
 class Persoana
 {
 protected:
