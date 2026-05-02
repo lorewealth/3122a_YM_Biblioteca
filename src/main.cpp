@@ -13,16 +13,9 @@
 */
 int main()
 {
-    try
-    {
-        Interfata interfata(1680, 700, "Biblioteca");
-        if(interfata.initializarea() == -1) throw Exceptie("Initializarea interfatei", "Nu a fost initializat cu succes");
-        interfata.ruleaza();
-    }
-    catch(const Exceptie& e)
-    {
-        e.afisare();
-    }
+    Interfata::Intro();
+
+
     return 0;
 }
 
