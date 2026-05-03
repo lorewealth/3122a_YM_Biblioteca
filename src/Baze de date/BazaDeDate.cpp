@@ -20,13 +20,6 @@ void BazaDeDate::creeazaTabeluri()
             status  TEXT NOT NULL,
             salariu  REAL DEFAULT 0
         );
-    )");
-    try {
-        db.exec("ALTER TABLE utilizatori RENAME COLUMN pozitia TO status;");
-    } catch (...) {
-        // Ignoram eroarea daca coloana 'status' exista deja sau 'pozitia' nu exista
-    }
-    db.exec(R"(
         CREATE TABLE IF NOT EXISTS carti(
             id     INTEGER PRIMARY KEY AUTOINCREMENT,
             tip    TEXT NOT NULL,
