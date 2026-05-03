@@ -26,7 +26,8 @@ target_include_directories(${TARGET_NAME} PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/lib"
 )
 
-target_link_libraries(${TARGET_NAME} PRIVATE pthread dl)
+find_package(OpenSSL REQUIRED)
+target_link_libraries(${TARGET_NAME} PRIVATE pthread dl OpenSSL::Crypto argon2)
 
 add_custom_target(run
     DEPENDS ${TARGET_NAME}

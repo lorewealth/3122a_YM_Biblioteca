@@ -1,3 +1,1 @@
-lib/sqlite/** linguist-vendored=true
-lib/SFML/** linguist-vendored=true
-lib/imgui/** linguist-vendored=true
+lib/** linguist-vendored=true
