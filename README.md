@@ -3,6 +3,5 @@
 
 ### lib
 Folder unde sunt prezentate librarii utilizate in acest proiect.
-ImGui - este o librarie pentru SFML care usureaza crearea interfetei
-SFML - este o librarie pe care se creaza interfata
-SQLite - este o librarie de baze de date
+SQLite + SQLiteCpp- sunt librarii de baze de date(SQLiteCpp pentru a usura lucru cu SQLite pur)
+Argon2 - o librarie de criptare a passwordului
