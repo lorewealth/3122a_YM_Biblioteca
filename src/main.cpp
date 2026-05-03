@@ -10,7 +10,7 @@ int main()
 {
     BazaDeDate db("BibliotecaDB.db");
     Biblioteca biblioteca(&db);
-    Interfata interfata(&db);
+    Interfata interfata(&biblioteca);
 
     interfata.IInitializarea();
 

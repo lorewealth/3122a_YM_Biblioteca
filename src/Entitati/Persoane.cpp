@@ -2,12 +2,16 @@
 #include <string>
 
 Persoana::Persoana(const std::string& nume, const std::string& prenume,
-                   const std::string&dataNasterii, const Status& status)
-                   : nume(nume), prenume(prenume), dataNasterii(dataNasterii), status(status){};
+                   const std::string&dataNasterii,const std::string&username, const Status& status)
+                   : nume(nume), prenume(prenume), dataNasterii(dataNasterii),username(username), status(status){};
 
-std::string Persoana::afisarea()
+std::string Persoana::afisare()
 {
     return "Nume: " + nume + " Prenume: " + prenume;
+}
+
+std::string Persoana::getUsername() const { 
+    return username;
 }
 
 std::string Persoana::getStatus() const {

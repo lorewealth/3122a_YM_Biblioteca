@@ -1,16 +1,16 @@
 #include <iostream>
-#include <memory>
-#include "BazaDeDate.h"
 #include "Utilitati.h"
+#include "CarteFizica.h"
+#include "Biblioteca.h"
 
 class Interfata{
 private:
     inline static std::string username;
     inline static std::string parola;
-    BazaDeDate *db;
-    std::unique_ptr<Persoana> utilizator;
+    Persoana* utilizator;
+    Biblioteca* biblioteca;
 public:
-    Interfata(BazaDeDate *db);
+    Interfata(Biblioteca *biblioteca);
     ~Interfata() = default;
     void IInitializarea();
     void ILogin();
@@ -19,11 +19,17 @@ public:
     void IBibliotecar();
     void IAdministrator();
     void ILogOut();
+    void IMeniu();
+
     void IAfisareImprumuturi();
     void IAfisareUtilizatori();
+    void IAfisareaCartilor();
     void IAdaugareCarte();
     void IStergereCarte();
+    
     void IPromovareUtilizator();
     void IDemovareUtilizator();
     void IStergereUtilizator();
+    void IImprumutaCarte();
+    void IReturneazaCarte();
 };

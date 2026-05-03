@@ -4,8 +4,8 @@ class Bibliotecar : public Persoana {
 private:
     double salariu;
 public:
-    Bibliotecar(const std::string& nume, const std::string& prenume, const std::string& dataNasterii, const Status& status, double salariu);
+    Bibliotecar(const std::string& nume, const std::string& prenume, const std::string& dataNasterii, const std::string& username, const Status& status, double salariu);
     ~Bibliotecar() = default;
-    std::string afisarea() override;
+    std::string afisare() override;
     double getSalariu();
 };

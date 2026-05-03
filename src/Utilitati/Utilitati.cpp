@@ -29,3 +29,11 @@ bool Utilitati::esteNumePrenumeValid(const std::string& s) {
         return std::isalpha(c) || c == '-';
     });
 }
+
+std::string Utilitati::dataAzi() {
+    time_t now = time(0);
+    tm* t = localtime(&now);
+    char buffer[11];
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d", t);
+    return std::string(buffer);
+}
