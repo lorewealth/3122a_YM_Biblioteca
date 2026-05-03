@@ -1,133 +1,290 @@
 #include "Interfata.h"
-#include "imgui.h"
-#include "imgui_internal.h"
-#include <climits>
-#include <cmath>
-#include <optional>
+#include <string>
 
-Interfata::Interfata(unsigned int lungimea, unsigned int inaltimea, const std::string& denumirea)
-                    : lungimea(lungimea), inaltimea(inaltimea), denumirea(denumirea)
-                    {
-                        flags = ImGuiWindowFlags_NoTitleBar |
-                                ImGuiWindowFlags_NoMove     |
-                                ImGuiWindowFlags_NoResize   |
-                                ImGuiWindowFlags_NoCollapse |
-                                ImGuiWindowFlags_NoBackground;
-                    }
+Interfata::Interfata(BazaDeDate *db) : db(db){};
 
-Interfata::~Interfata()
+void Interfata::IInitializarea()
 {
-    ImGui::SFML::Shutdown();
-}
-
-int Interfata::initializarea()
-{
-    window.create(sf::VideoMode({lungimea, inaltimea}), denumirea);
-    window.setFramerateLimit(60);
-
-    if(!ImGui::SFML::Init(window)) return -1;
-
-    return 0;
-}
-
-void Interfata::ruleaza()
-{
-    while(window.isOpen())
+    std::string optiunea;
+    char optVal;
+    do
     {
-        while(const std::optional event = window.pollEvent())
-        {
-            ImGui::SFML::ProcessEvent(window, *event);
-            if(event->template is<sf::Event::Closed>())
-            {
-                window.close();
-            }
-        }
+        Utilitati::curataConsola();
+        std::cout << "\n~~~~~~~~~~~~~~~~~~~~Biblioteca~~~~~~~~~~~~~~~~~~~~";
+        std::cout << "\nSelectati metoda de a intra in sistema bibliotecii:";
+        std::cout << "\nL. Log in";
+        std::cout << "\nI. Inregistrarea";
+        std::cout << "\nQ. Iesirea din sistem";
+        std::cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+        std::cout << "\nSelectati: ";
 
-        ImGui::SFML::Update(window, deltaCeas.restart());
+        std::cin >> optiunea;
+        optVal = toupper(optiunea[0]);
+    }
+    while(optVal != 'L' && optVal != 'I' && optVal != 'Q');
 
-        ImGui::SetNextWindowPos(ImVec2(0,0));
-        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
-
-        ImGui::Begin("Login", nullptr, flags);
-
-        {
-            ImVec2 locDisponibil = ImGui::GetContentRegionAvail();
-
-            float lungContent = 400;
-            float inaltContent = 120;
-
-            float pozX = (locDisponibil.x - lungContent) * 0.5;
-            float pozY = (locDisponibil.y - inaltContent) * 0.5;
-
-            if(pozX < 0) pozX = 0;
-            if(pozY < 0) pozY = 0;
-
-            ImGui::SetCursorPos(ImVec2(pozX, pozY));
-            Login(pozX, lungContent);
-
-        }
-
-        ImGui::End();
-
-        window.clear(sf::Color(45, 45, 45));
-        ImGui::SFML::Render(window);
-        window.display();
+    switch (optVal)
+    {
+        case 'L':
+            ILogin();
+            break;
+        case 'I':
+            IRegistrarea();
+            break;
+        case 'Q':
+            exit(0);
+            break;
+        default:
+            break;
     }
 
 }
 
-void Interfata::Login(float pozX, float lungContent)
+void Interfata::ILogin()
 {
-
-    ImGui::BeginGroup();
-
-    if (ImGui::BeginTable("Log in", 2, ImGuiTableFlags_SizingFixedFit))
+    Utilitati::curataConsola();
+    std::cout << "~~~~~~~~~~~~~~~~~~~Logarea~~~~~~~~~~~~~~~~~~~\n";
+    do
     {
-        ImGui::TableNextRow();
-        ImGui::TableSetColumnIndex(0);
-        ImGui::AlignTextToFramePadding();
-        ImGui::Text("Username:");
+        std::cout << "Username: ";
+        std::cin >> username;
 
-        ImGui::TableSetColumnIndex(1);
-        ImGui::SetNextItemWidth(300);
-        ImGui::InputText("##User", bufferUsername, IM_ARRAYSIZE(bufferUsername));
+        if (!Utilitati::esteUsernameValid(username))
+            std::cout << "Username invalid! Folositi doar litere, cifre, '_' sau '-'.\n";
+        else if (!db->existaUtilizator(username))
+            std::cout << "Utilizatorul nu exista! Reintroduceti username-ul:\n";
+        else break;
+    }
+    while(true);
 
-        ImGui::TableNextRow();
-        ImGui::TableSetColumnIndex(0);
-        ImGui::AlignTextToFramePadding();
-        ImGui::Text("Password:");
+    do
+    {
+        std::cout << "Parola: ";
+        std::cin >> parola;
+    
+        if (!db->verificLoginare(username, parola))
+            std::cout << "Parola invalida!\n";
+        else break;
+    }
+    while(true);
+        
 
-        ImGui::TableSetColumnIndex(1);
-        ImGui::SetNextItemWidth(300);
-        ImGui::InputText("##Password", bufferPassword, IM_ARRAYSIZE(bufferPassword), ImGuiInputTextFlags_Password);
+    utilizator = db->getPersoana(username);
+    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 
-        ImGui::EndTable();
+    if (!utilizator)
+    {
+        std::cout << "Eroare la incarcarea datelor utilizatorului!\n";
+        IInitializarea();
+        return;
     }
 
-    float lungimeButon = 120;
-    ImGui::SetCursorPosX(pozX + (lungContent - lungimeButon) * 0.5);
-    if(ImGui::Button("Log in", ImVec2(lungimeButon, 0)))
-    {
-        if(Interfata::getUsername() == "lorewealth" && Criptare::decriptare(Interfata::getPassword()) == "12345")
-        {
-            loginStatus = 1;
-        }
-        else
-        {
-            loginStatus = 2;
-        }
-
-    }
-
-    if (loginStatus == 1) ImGui::TextColored(ImVec4(0, 1, 0, 1), "Hello, lorewealth!");
-    else if (loginStatus == 2) ImGui::TextColored(ImVec4(1, 0, 0, 1), "Username invalid sau password-ul.");
-
-    ImGui::EndGroup();
-
+    if(utilizator->getStatus() == "Client")
+        IClient();
+    else if(utilizator->getStatus() == "Bibliotecar")
+        IBibliotecar();
+    else if(utilizator->getStatus() == "Administrator")
+        IAdministrator();
 }
 
-std::string Interfata::getUsername() const { return std::string(bufferUsername); }
-std::string Interfata::getPassword() const
+void Interfata::IRegistrarea()
 {
-    return std::string(Criptare::criptare(bufferPassword));
+    std::string nume;
+    std::string prenume;
+    std::string dataDeNastere;
+    double salariu = 0.0;
+
+    Utilitati::curataConsola();
+    std::cout << "~~~~~~~~~~~~~~~~~~~Registrarea~~~~~~~~~~~~~~~~~~~\n";
+    do {
+        std::cout << "Username: ";
+        std::cin >> username;
+
+        if (!Utilitati::esteUsernameValid(username))
+            std::cout << "Username invalid! Folositi doar litere, cifre, '_' sau '-'.\n";
+        else if (db->existaUtilizator(username))
+            std::cout << "Utilizatorul exista deja! Alegeti alt username.\n";
+        else break;
+    } while (true);
+
+    do
+    {
+        std::cout << "Parola: ";
+        std::cin >> parola;
+        if (parola.size() < 8)
+            std::cout << "Parola invalida! Parola trebuie sa fie de cel putin 8 caractere.\n";
+        else break;
+    }
+    while(true);
+
+    do {
+        std::cout << "Nume: ";
+        std::cin >> nume;
+        if (!Utilitati::esteNumePrenumeValid(nume))
+            std::cout << "Nume invalid! Folositi doar litere.\n";
+        else break;
+    } while (true);
+
+    do {
+        std::cout << "Prenume: ";
+        std::cin >> prenume;
+        if (!Utilitati::esteNumePrenumeValid(prenume))
+            std::cout << "Prenume invalid! Folositi doar litere.\n";
+        else break;
+    } while (true);
+    
+    std::cout << "Ziua de nastere (DD-MM-YYYY): ";
+    std::cin >> dataDeNastere;
+    
+    std::cout << "Selectati cine sunteti in biblioteca:";
+    std::cout << "\nc. Client";
+    std::cout << "\nb. Bibliotecar";
+    std::cout << "\na. Administrator";
+    std::cout << "\nSelectati: ";
+
+    std::string statusSelectat;
+    std::cin >> statusSelectat;
+    char statusChar = tolower(statusSelectat[0]);
+    std::string statusStr;
+    
+    switch (statusChar)
+    {
+        case 'c':
+            statusStr = "Client";
+            break;
+        case 'b':
+            std::cout << "Salariul: ";
+            std::cin >> salariu;
+            statusStr = "Bibliotecar";
+            break;
+        case 'a':
+            std::cout << "Salariul: ";
+            std::cin >> salariu;
+            statusStr = "Administrator";
+            break;
+        default:
+            break;
+    }
+
+    db->adaugaUtilizator(Utilitati::trim(username), parola, Utilitati::trim(nume), Utilitati::trim(prenume), Utilitati::trim(dataDeNastere), statusStr, salariu);
+    std::cout << "Utilizator inregistrat cu succes!\n";
+    std::cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+    ILogin();
+}
+
+void Interfata::IClient()
+{
+    Utilitati::curataConsola();
+    std::cout << "~~~~~~~~~~~~~~~~~~~Meniul Clientului~~~~~~~~~~~~~~~~~~~\n";
+    std::cout << "Utilizator: " << utilizator->afisarea() << "\n";
+    std::cout << "Ce doriti sa faceti?\n";
+    std::cout << "\n1. Carti disponibile";
+    std::cout << "\n2. Imprumutati o carte";
+    std::cout << "\n3. Returnati o carte";
+    std::cout << "\n4. Cartile imprumutate";
+    std::cout << "\n5. Iesiti din cont";
+    std::cout << "\nSelectati: ";
+    std::string optiune;
+    std::cin >> optiune;
+    char optVal = tolower(optiune[0]);
+    switch (optVal)
+    {
+        case '1':
+            
+            break;
+        case '2':
+            
+            break;
+        case '3':
+            
+            break;
+        case '4':
+            
+            break;
+        case '5':
+            ILogOut();
+            break;
+        default:
+            break;
+    }
+}
+
+void Interfata::IBibliotecar()
+{
+    Utilitati::curataConsola();
+    std::cout << "~~~~~~~~~~~~~~~~~~~Meniul Bibliotecarului~~~~~~~~~~~~~~~~~~~\n";
+    std::cout << "Utilizator: " << utilizator->afisarea() << "\n";
+    std::cout << "Ce doriti sa faceti?\n";
+    std::cout << "\n1. Adaugati o carte";
+    std::cout << "\n2. Sterge o carte";
+    std::cout << "\n3. Vizualizati cartile";
+    std::cout << "\n4. Cartile imprumutate de utilizatori";
+    std::cout << "\n5. Iesiti din cont";
+    std::cout << "\nSelectati: ";
+    std::string optiune;
+    std::cin >> optiune;
+    char optVal = tolower(optiune[0]);
+    switch (optVal)
+    {
+        case '1':
+            
+            break;
+        case '2':
+            
+            break;
+        case '3':
+            
+            break;
+        case '4':
+            
+            break;
+        case '5':
+            ILogOut();
+            break;
+        default:
+            break;
+    }
+}
+
+void Interfata::IAdministrator()
+{
+    Utilitati::curataConsola();
+    std::cout << "~~~~~~~~~~~~~~~~~~~Meniul Administratorului~~~~~~~~~~~~~~~~~~~\n";
+    std::cout << "Utilizator: " << utilizator->afisarea() << "\n";
+    std::cout << "Ce doriti sa faceti?\n";
+    std::cout << "\n1. Promoveaza utilizator";
+    std::cout << "\n2. Demoveaza utilizator";
+    std::cout << "\n3. Sterge utilizator";
+    std::cout << "\n4. Vizualizeaza toti utilizatorii";
+    std::cout << "\n5. Iesiti din cont";
+    std::cout << "\nSelectati: ";
+    std::string optiune;
+    std::cin >> optiune;
+    char optVal = tolower(optiune[0]);
+    switch (optVal)
+    {
+        case '1':
+            
+            break;
+        case '2':
+            
+            break;
+        case '3':
+            
+            break;
+        case '4':
+            
+            break;
+        case '5':
+            ILogOut();
+            break;
+        default:
+            break;
+    }
+}
+
+void Interfata::ILogOut()
+{
+    utilizator = nullptr;
+    IInitializarea();
 }
