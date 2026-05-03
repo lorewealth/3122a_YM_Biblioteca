@@ -1,7 +1,7 @@
 #include "Carte.h"
 #include <string>
 
-Carte::Carte(const std::string& titlu, const std::string& autor, const std::string& isbn, int anul) : titlu(titlu), autor(autor), isbn(isbn), anul(anul){};
+Carte::Carte(const std::string& titlu, const std::string& autor, const std::string& isbn, int anul, const Tip& tip) : anul(anul), titlu(titlu), autor(autor), isbn(isbn), tip(tip){};
 
 const std::string& Carte::getTitlu(){ return titlu; }
 const std::string& Carte::getAutor(){ return autor; }
@@ -22,11 +22,28 @@ void Carte::setISBN()
     std::cout << "Setati un nou ISBN: ";
     std::getline(std::cin >> std::ws, isbn);
 }
-void Carte::setId(int id)
+const Tip& Carte::getTip()
 {
-    this->id = id;
+     return tip;
 }
-int Carte::getId()
-{
-    return id;
+
+std::string Carte::getTipStr() const {
+    switch (tip)
+    {
+    case Tip::Fictiune:
+        return "Fictiune";
+    case Tip::Tehnica:
+        return "Tehnica";
+    case Tip::Digitala:
+        return "Digitala";
+    case Tip::Audio:
+        return "Audio";
+    }
+}
+
+int Carte::getAnul() { return anul; }
+
+void Carte::setAnul() {
+    std::cout << "Setati noul an: ";
+    std::cin >> anul;
 }

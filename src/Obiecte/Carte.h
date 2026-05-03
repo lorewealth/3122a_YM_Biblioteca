@@ -1,26 +1,42 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
+
+enum class Stare
+{
+    Buna,
+    Normala,
+    Rea
+};
+
+enum class Tip
+{
+    Fictiune,
+    Tehnica,
+    Digitala,
+    Audio,
+};
 
 class Carte{
 protected:
-    int id;
     int anul;
     std::string titlu;
     std::string autor;
     std::string isbn;
+    Tip tip;
 public:
-    Carte(const std::string& titlu, const std::string& autor, const std::string& isbn, int anul);
+    Carte(const std::string& titlu, const std::string& autor, const std::string& isbn, int anul, const Tip& tip);
     virtual ~Carte() = default;
     virtual std::string afisare() const = 0;
-    int getId();
     const std::string& getTitlu();
     const std::string& getAutor();
     const std::string& getISBN();
+    const Tip& getTip();
+    virtual std::string getTipStr() const;
     void setTitlu();
     void setAutor();
     void setISBN();
-    void setId(int id);
     int getAnul();
     void setAnul();
 };

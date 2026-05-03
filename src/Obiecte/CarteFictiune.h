@@ -1,12 +1,13 @@
-#include "Carte.h"
+#include "CarteFizica.h"
 #include <string>
 #include <vector>
 
-class CarteFictiune : public Carte{
-private:
-    std::vector<std::string> genre;
+#pragma once
+
+class CarteFictiune : public CarteFizica
+{
 public:
-    CarteFictiune(const std::string& titlu, const std::string& autor, const std::string& isbn, int anul, const std::vector<std::string>& genre);
+    CarteFictiune(const std::string& titlu, const std::string& autor, const std::string& isbn, int anul, const std::vector<std::string>& genre, const Tip& tip, int nrPagini, const Stare& stare);
     std::string afisare() const override;
-    std::vector<std::string> getGenre();
+    const std::vector<std::string>& getGenre() override;
 };
